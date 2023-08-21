@@ -27,7 +27,8 @@ class FedAvgSaveModel(fl.server.strategy.FedAvg):
             # Save weights
             print(f"Log: Saving round {server_round} weights...")
             set_weights(self.model, parameters_to_ndarrays(weights[0]))
-            self.model.save_local(server_round, None, None)  # TODO update to meaningful info
+            # TODO update to meaningful info
+            self.model.save_local(server_round, None, None)
         return weights
 
 
@@ -49,7 +50,7 @@ class FedServer:
             initial_parameters=init_param,
         )
 
-    def run(self):
-        fl.server.start_server(server_address="localhost:8080",
+    def run(self, server_address):
+        fl.server.start_server(server_address=server_address,
                                config=fl.server.ServerConfig(num_rounds=3),
                                strategy=self.strategy)

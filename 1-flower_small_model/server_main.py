@@ -40,6 +40,13 @@ if __name__ == '__main__':
         help="Path to checkpoint to be loaded",
     )
 
+    parser.add_argument(
+        "-addr",
+        type=str,
+        default="0.0.0.0:8080",
+        help="Server address. Defaults to \"0.0.0.0: 8080\".",
+    )
+
     args = parser.parse_args()
 
     rounds = int(args.r)
@@ -47,6 +54,7 @@ if __name__ == '__main__':
     ac = int(args.ac)
     ec = int(args.ec)
     ckpt_path = args.ckpt
+    addr = args.addr
     global batch_size
     batch_size = int(args.b)
     init_param = None
@@ -61,4 +69,4 @@ if __name__ == '__main__':
         base_epoch = model_dict["epoch"]
 
     server = FedServer(model, base_epoch, fc, ac)
-    server.run()
+    server.run(addr)

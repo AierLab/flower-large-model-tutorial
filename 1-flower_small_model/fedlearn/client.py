@@ -38,6 +38,6 @@ class FedClient(fl.client.NumPyClient):
         print(f"loss: {loss}, accuracy{accuracy}")  # TODO refactor to log
         return float(loss), self.num_examples["testset"], {"accuracy": float(accuracy)}
 
-    def run(self):
+    def run(self, server_address):
         fl.client.start_numpy_client(
-            server_address="localhost:8080", client=self)
+            server_address=server_address, client=self)

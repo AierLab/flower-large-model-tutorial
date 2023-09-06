@@ -23,7 +23,7 @@ class FedAvgSaveModel(fl.server.strategy.FedAvg):
                       ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
         server_round = self.base_epoch + server_round
         weights = super().aggregate_fit(server_round, results, failures)
-        if weights is not None:
+        if weights[0] is not None:
             # Save weights
             print(f"Log: Saving round {server_round} weights...")
             set_weights(self.model, parameters_to_ndarrays(weights[0]))
